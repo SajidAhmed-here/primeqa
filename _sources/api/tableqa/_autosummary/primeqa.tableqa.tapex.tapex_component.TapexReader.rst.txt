@@ -1,0 +1,36 @@
+primeqa.tableqa.tapex.tapex\_component.TapexReader
+==================================================
+
+.. currentmodule:: primeqa.tableqa.tapex.tapex_component
+
+.. autoclass:: TapexReader
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~TapexReader.eval
+      ~TapexReader.load
+      ~TapexReader.predict
+      ~TapexReader.train
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~TapexReader.config
+      ~TapexReader.model
+      ~TapexReader.tokenizer
+   
+   

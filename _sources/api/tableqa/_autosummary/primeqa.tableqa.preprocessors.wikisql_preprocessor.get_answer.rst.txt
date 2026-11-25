@@ -1,0 +1,6 @@
+primeqa.tableqa.preprocessors.wikisql\_preprocessor.get\_answer
+===============================================================
+
+.. currentmodule:: primeqa.tableqa.preprocessors.wikisql_preprocessor
+
+.. autofunction:: get_answer

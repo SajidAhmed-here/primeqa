@@ -1,0 +1,45 @@
+corpus\_reader
+==============
+
+.. automodule:: primeqa.ir.util.corpus_reader
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      corpus_reader
+      is_csv
+      is_tsv
+      list_corpus_files
+      lookup_by_aliases
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      DocumentCollection
+      Passage
+   
+   
+
+   
+   
+   
+
+
+

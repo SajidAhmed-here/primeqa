@@ -1,0 +1,6 @@
+primeqa.tableqa.preprocessors.wikisql\_preprocessor.preprocess\_table
+=====================================================================
+
+.. currentmodule:: primeqa.tableqa.preprocessors.wikisql_preprocessor
+
+.. autofunction:: preprocess_table

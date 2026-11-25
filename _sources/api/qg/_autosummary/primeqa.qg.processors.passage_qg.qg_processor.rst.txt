@@ -1,0 +1,32 @@
+qg\_processor
+=============
+
+.. automodule:: primeqa.qg.processors.passage_qg.qg_processor
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      QGProcessor
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,29 @@
+primeqa.ir.dense.dpr\_top.dpr.searcher.DPRSearcher
+==================================================
+
+.. currentmodule:: primeqa.ir.dense.dpr_top.dpr.searcher
+
+.. autoclass:: DPRSearcher
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~DPRSearcher.init_title_to_title
+      ~DPRSearcher.merge_results
+      ~DPRSearcher.rescore
+      ~DPRSearcher.search
+      ~DPRSearcher.search_title_to_title
+   
+   
+
+   
+   
+   

@@ -1,0 +1,36 @@
+primeqa.ir.sparse.config.SearchArguments
+========================================
+
+.. currentmodule:: primeqa.ir.sparse.config
+
+.. autoclass:: SearchArguments
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SearchArguments.b
+      ~SearchArguments.index_location
+      ~SearchArguments.k1
+      ~SearchArguments.output_dir
+      ~SearchArguments.queries
+      ~SearchArguments.topK
+      ~SearchArguments.use_bm25
+   
+   

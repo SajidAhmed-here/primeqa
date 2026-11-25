@@ -1,0 +1,31 @@
+wikisql
+=======
+
+.. automodule:: primeqa.tableqa.tapex.processors.preprocessors.wikisql
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      preprocess_tableqa_function_wikisql
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

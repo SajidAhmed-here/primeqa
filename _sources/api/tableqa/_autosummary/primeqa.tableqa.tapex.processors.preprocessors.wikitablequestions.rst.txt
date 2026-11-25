@@ -1,0 +1,31 @@
+wikitablequestions
+==================
+
+.. automodule:: primeqa.tableqa.tapex.processors.preprocessors.wikitablequestions
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      preprocess_tableqa_function_wtq
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

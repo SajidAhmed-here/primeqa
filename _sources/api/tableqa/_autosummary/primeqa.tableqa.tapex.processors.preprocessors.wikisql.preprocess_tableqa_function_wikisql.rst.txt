@@ -1,0 +1,6 @@
+primeqa.tableqa.tapex.processors.preprocessors.wikisql.preprocess\_tableqa\_function\_wikisql
+=============================================================================================
+
+.. currentmodule:: primeqa.tableqa.tapex.processors.preprocessors.wikisql
+
+.. autofunction:: preprocess_tableqa_function_wikisql

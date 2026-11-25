@@ -1,0 +1,6 @@
+primeqa.tableqa.tapex.processors.preprocessors.wikitablequestions.preprocess\_tableqa\_function\_wtq
+====================================================================================================
+
+.. currentmodule:: primeqa.tableqa.tapex.processors.preprocessors.wikitablequestions
+
+.. autofunction:: preprocess_tableqa_function_wtq

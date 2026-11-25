@@ -1,0 +1,6 @@
+primeqa.tableqa.preprocessors.convert\_to\_sqa\_format.parse\_question
+======================================================================
+
+.. currentmodule:: primeqa.tableqa.preprocessors.convert_to_sqa_format
+
+.. autofunction:: parse_question

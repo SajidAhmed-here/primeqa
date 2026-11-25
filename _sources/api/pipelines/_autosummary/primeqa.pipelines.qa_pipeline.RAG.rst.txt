@@ -1,0 +1,25 @@
+primeqa.pipelines.qa\_pipeline.RAG
+==================================
+
+.. currentmodule:: primeqa.pipelines.qa_pipeline
+
+.. autoclass:: RAG
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~RAG.run
+   
+   
+
+   
+   
+   

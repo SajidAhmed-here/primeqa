@@ -1,0 +1,6 @@
+primeqa.tableqa.run\_tableqa.run\_table\_qa
+===========================================
+
+.. currentmodule:: primeqa.tableqa.run_tableqa
+
+.. autofunction:: run_table_qa

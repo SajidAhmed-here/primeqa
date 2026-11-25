@@ -1,0 +1,32 @@
+﻿boolqa
+======
+
+.. automodule:: primeqa.boolqa
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   primeqa.boolqa.processors
+   primeqa.boolqa.run_score_normalizer
+   primeqa.boolqa.score_normalizer
+

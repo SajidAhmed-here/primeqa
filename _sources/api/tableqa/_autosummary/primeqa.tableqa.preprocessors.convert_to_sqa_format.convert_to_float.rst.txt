@@ -1,0 +1,6 @@
+primeqa.tableqa.preprocessors.convert\_to\_sqa\_format.convert\_to\_float
+=========================================================================
+
+.. currentmodule:: primeqa.tableqa.preprocessors.convert_to_sqa_format
+
+.. autofunction:: convert_to_float

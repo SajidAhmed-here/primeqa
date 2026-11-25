@@ -1,0 +1,42 @@
+primeqa.tableqa.run\_tableqa.TableQAArguments
+=============================================
+
+.. currentmodule:: primeqa.tableqa.run_tableqa
+
+.. autoclass:: TableQAArguments
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~TableQAArguments.allow_empty_column_selection
+      ~TableQAArguments.answer_loss_cutoff
+      ~TableQAArguments.cell_selection_preference
+      ~TableQAArguments.data_path_root
+      ~TableQAArguments.dataset_name
+      ~TableQAArguments.dev_data_path
+      ~TableQAArguments.huber_loss_delta
+      ~TableQAArguments.init_cell_selection_weights_to_zero
+      ~TableQAArguments.num_aggregation_labels
+      ~TableQAArguments.select_one_column
+      ~TableQAArguments.temperature
+      ~TableQAArguments.train_data_path
+      ~TableQAArguments.use_answer_as_supervision
+   
+   

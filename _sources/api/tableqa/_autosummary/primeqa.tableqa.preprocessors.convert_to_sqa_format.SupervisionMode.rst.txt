@@ -1,0 +1,26 @@
+primeqa.tableqa.preprocessors.convert\_to\_sqa\_format.SupervisionMode
+======================================================================
+
+.. currentmodule:: primeqa.tableqa.preprocessors.convert_to_sqa_format
+
+.. autoclass:: SupervisionMode
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SupervisionMode.NONE
+      ~SupervisionMode.REMOVE_ALL
+      ~SupervisionMode.REMOVE_ALL_STRICT
+   
+   

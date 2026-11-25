@@ -1,0 +1,34 @@
+wikisql\_preprocessor
+=====================
+
+.. automodule:: primeqa.tableqa.preprocessors.wikisql_preprocessor
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      get_answer
+      load_data
+      preprocess_table
+      preprocess_wikisql
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

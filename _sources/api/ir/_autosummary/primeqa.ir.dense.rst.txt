@@ -1,0 +1,31 @@
+dense
+=====
+
+.. automodule:: primeqa.ir.dense
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   primeqa.ir.dense.colbert_top
+   primeqa.ir.dense.dpr_top
+

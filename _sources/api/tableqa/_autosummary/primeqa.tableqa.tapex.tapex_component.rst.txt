@@ -1,0 +1,32 @@
+tapex\_component
+================
+
+.. automodule:: primeqa.tableqa.tapex.tapex_component
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      TapexReader
+   
+   
+
+   
+   
+   
+
+
+

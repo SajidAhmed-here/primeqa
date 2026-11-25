@@ -1,0 +1,6 @@
+primeqa.tableqa.tapex.run\_tapex.main
+=====================================
+
+.. currentmodule:: primeqa.tableqa.tapex.run_tapex
+
+.. autofunction:: main

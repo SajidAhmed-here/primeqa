@@ -1,0 +1,40 @@
+run\_tableqa
+============
+
+.. automodule:: primeqa.tableqa.run_tableqa
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      run_table_qa
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      TableQAArguments
+   
+   
+
+   
+   
+   
+
+
+

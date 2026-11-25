@@ -1,0 +1,32 @@
+tapex\_accuracy
+===============
+
+.. automodule:: primeqa.tableqa.tapex.metrics.tapex_accuracy
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      TapexAccuracy
+   
+   
+
+   
+   
+   
+
+
+

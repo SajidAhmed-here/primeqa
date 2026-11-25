@@ -1,0 +1,44 @@
+convert\_to\_sqa\_format
+========================
+
+.. automodule:: primeqa.tableqa.preprocessors.convert_to_sqa_format
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      convert_to_float
+      parse_question
+      to_float32
+      tokenize_string
+      wtq_normalize
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      SupervisionMode
+   
+   
+
+   
+   
+   
+
+
+
