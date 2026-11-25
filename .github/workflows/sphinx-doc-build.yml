@@ -1,54 +1,194 @@
 name: SphinxDoc Build
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
-    types:
-      - closed
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: sphinx-docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build_if_merged:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    env:
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      CUDA_VISIBLE_DEVICES: ''
+      MPLBACKEND: Agg
+      STANZA_RESOURCES_DIR: ${{ runner.temp }}/stanza_resources
+      DOCS_SOURCE: ${{ runner.temp }}/sphinx-source
+      DOCS_OUTPUT: ${{ runner.temp }}/sphinx-html
+      DOCS_LOG: ${{ runner.temp }}/sphinx-warnings.log
     steps:
-    - run: |
-        echo The PR was merged - Sphinx docs build started
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.9
-    - name: Install dependencies (docs/requirements.txt)
-      run: |
-        sudo apt-get install build-essential pandoc
-        python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
-        python -m pip install wheel
-        python -m pip install 'torch~=1.11.0' --extra-index-url https://download.pytorch.org/whl/cu113
-        if [ -f docs/requirements.txt ]; then pip install -r docs/requirements.txt; fi
-    - name: Copy README changes (docs/scripts/copy-readme-to-docs.sh)
-      run: |
-        chmod +x ./docs/scripts/copy-readme-to-docs.sh
-        ./docs/scripts/copy-readme-to-docs.sh
-      shell: bash
-    - name: SphinxDoc Make HTML
-      run: |
-        cd docs
-        make html -e SPHINXOPTS='--keep-going --no-color -w "log_file"'   
-    - name: Upload artifacts (docs/log_file)
-      uses: actions/upload-artifact@v3
-      with:
-        name: html-docs-log_file
-        path: docs/log_file
-    - name: Deploy Documentation (gh-pages branch)
-      if: ${{ github.ref || github.head_ref }} == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/_build/html
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-        commit_message: -automatic commit- Sphinx Doc Build
+      - name: Check out source
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      # setup.py requires Python <3.11; the pinned native dependencies have 3.9 wheels.
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.9'
+          cache: pip
+          cache-dependency-path: |
+            setup.py
+            pyproject.toml
+            .github/workflows/sphinx-doc-build.yml
+
+      - name: Set up Java for Pyserini
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y build-essential pandoc graphviz
+
+      - name: Install PrimeQA and documentation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Keep pkg_resources, used by primeqa/__init__.py, and the legacy build backend.
+          python -m pip install 'pip==24.3.1' 'setuptools==65.7.0' 'wheel==0.38.4'
+
+          # docs/requirements.txt installs primeqa==0.8.0, GPU packages, and versions
+          # conflicting with setup.py. Use the checked-out package's docs extra instead.
+          # Constraints live in runner temp; repository dependency files stay untouched.
+          cat > "$RUNNER_TEMP/docs-constraints.txt" <<'CONSTRAINTS'
+          setuptools==65.7.0
+          wheel==0.38.4
+          numpy==1.21.6
+          scipy==1.8.1
+          scikit-learn==1.0.2
+          pandas==1.4.4
+          pyarrow==7.0.0
+          apache-beam==2.44.0
+          dill==0.3.1.1
+          fsspec==2022.5.0
+          huggingface-hub==0.12.1
+          sentence-transformers==2.2.2
+          torchvision==0.12.0+cpu
+          sentencepiece==0.1.99
+          spacy==3.2.4
+          pydantic==1.8.2
+          nltk==3.8.1
+          tensorboard==2.11.2
+          tensorboardX==2.5.1
+          protobuf==3.20.3
+          sphinx==4.4.0
+          sphinx-design==0.2.0
+          docutils==0.17.1
+          Jinja2==3.0.3
+          sphinxcontrib-applehelp==1.0.2
+          sphinxcontrib-devhelp==1.0.2
+          sphinxcontrib-htmlhelp==2.0.0
+          sphinxcontrib-jsmath==1.0.1
+          sphinxcontrib-qthelp==1.0.3
+          sphinxcontrib-serializinghtml==1.1.5
+          nbsphinx==0.8.12
+          nbconvert==6.5.4
+          CONSTRAINTS
+
+          # CPU wheels avoid installing CUDA on a hosted documentation runner.
+          python -m pip install 'torch==1.11.0+cpu' 'torchvision==0.12.0+cpu' \
+            --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --no-build-isolation \
+            --constraint "$RUNNER_TEMP/docs-constraints.txt" \
+            '.[docs]' 'nbsphinx==0.8.12' 'tensorboardX==2.5.1'
+          python -m pip install --no-deps 'torch-scatter==2.0.9' \
+            --no-index --find-links https://data.pyg.org/whl/torch-1.11.0+cpu.html
+          python -m pip check
+          python -m nltk.downloader punkt
+          python -m pip freeze > "$RUNNER_TEMP/docs-packages.txt"
+
+      - name: Prepare documentation without changing tracked files
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a docs "$DOCS_SOURCE"
+          # Mirror the README mappings in docs/scripts/copy-readme-to-docs.sh.
+          # That script commits and pushes; only copy into a temporary build tree here.
+          for package in boolqa calibration distillation ir mrc pipelines qg tableqa util; do
+            cp "primeqa/$package/README.md" "$DOCS_SOURCE/api/$package/index.md"
+          done
+
+      - name: Build HTML documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$DOCS_SOURCE"
+          # conf.py disables notebook execution. Preserve existing warning behavior;
+          # Sphinx errors still fail the build and warnings are saved for review.
+          python -m sphinx -b html --keep-going --no-color \
+            -w "$DOCS_LOG" . "$DOCS_OUTPUT"
+          test -s "$DOCS_OUTPUT/index.html"
+          touch "$DOCS_OUTPUT/.nojekyll"
+
+      - name: Upload build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sphinx-diagnostics
+          path: |
+            ${{ env.DOCS_LOG }}
+            ${{ runner.temp }}/docs-packages.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload HTML documentation
+        uses: actions/upload-artifact@v7
+        with:
+          name: sphinx-html
+          path: ${{ env.DOCS_OUTPUT }}/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  # Retain the gh-pages publishing convention described in docs/README.md.
+  # PRs only build; publishing receives write permission in a separate job.
+  deploy:
+    needs: build
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: sphinx-docs-publish
+      cancel-in-progress: false
+    steps:
+      - name: Check out repository for publishing
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Download built documentation
+        uses: actions/download-artifact@v7
+        with:
+          name: sphinx-html
+          path: public
+
+      # Repository Settings > Pages must use the gh-pages branch, root directory.
+      # GITHUB_TOKEN is provided by GitHub; no custom secrets or variables are needed.
+      - name: Publish documentation
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: public
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: Build Sphinx documentation
