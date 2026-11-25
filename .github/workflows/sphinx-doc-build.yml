@@ -23,11 +23,19 @@ jobs:
       TOKENIZERS_PARALLELISM: 'false'
       CUDA_VISIBLE_DEVICES: ''
       MPLBACKEND: Agg
-      STANZA_RESOURCES_DIR: ${{ runner.temp }}/stanza_resources
-      DOCS_SOURCE: ${{ runner.temp }}/sphinx-source
-      DOCS_OUTPUT: ${{ runner.temp }}/sphinx-html
-      DOCS_LOG: ${{ runner.temp }}/sphinx-warnings.log
     steps:
+      # The runner context is unavailable in jobs.<job_id>.env. Initialize paths
+      # after the runner starts and export them for subsequent steps instead.
+      - name: Initialize documentation paths
+        shell: bash
+        run: |
+          {
+            echo "STANZA_RESOURCES_DIR=$RUNNER_TEMP/stanza_resources"
+            echo "DOCS_SOURCE=$RUNNER_TEMP/sphinx-source"
+            echo "DOCS_OUTPUT=$RUNNER_TEMP/sphinx-html"
+            echo "DOCS_LOG=$RUNNER_TEMP/sphinx-warnings.log"
+          } >> "$GITHUB_ENV"
+
       - name: Check out source
         uses: actions/checkout@v7
         with:
