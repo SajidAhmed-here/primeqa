@@ -93,7 +93,8 @@ jobs:
           nltk==3.8.1
           tensorboard==2.11.2
           tensorboardX==2.5.1
-          protobuf==3.20.3
+          # tensorboardX 2.5.1 requires protobuf <=3.20.1.
+          protobuf==3.20.1
           sphinx==4.4.0
           sphinx-design==0.2.0
           docutils==0.17.1
