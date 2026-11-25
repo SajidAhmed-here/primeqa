@@ -114,7 +114,7 @@ jobs:
             --index-url https://download.pytorch.org/whl/cpu
           python -m pip install --no-build-isolation \
             --constraint "$RUNNER_TEMP/docs-constraints.txt" \
-            '.[docs]' 'nbsphinx==0.8.12' 'tensorboardX==2.5.1'
+            '.[docs]' 'nbsphinx==0.8.12' 'tensorboardX==2.5.1' 'lxml[html-clean]'
           python -m pip install --no-deps 'torch-scatter==2.0.9' \
             --no-index --find-links https://data.pyg.org/whl/torch-1.11.0+cpu.html
           python -m pip check
